@@ -1,0 +1,577 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&family=Hind+Siliguri:wght@400;500;600;700&display=swap');
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * ATDB Trade International — Design System
+ * Direction: Industrial bronze & steel + safety orange accent.
+ * Editorial industrial minimalism. 8pt grid. Montserrat display, Inter body.
+ */
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-iron: var(--iron);
+  --color-iron-deep: var(--iron-deep);
+  --color-bronze: var(--bronze);
+  --color-bronze-glow: var(--bronze-glow);
+  --color-safety: var(--safety);
+  --color-safety-deep: var(--safety-deep);
+  --color-steel: var(--steel);
+  --color-whatsapp: var(--whatsapp);
+  --color-success: var(--success);
+  --font-display: 'Montserrat', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-bn: 'Hind Siliguri', 'Noto Sans Bengali', sans-serif;
+}
+
+:root {
+  --radius: 0.25rem;
+
+  /* Iron Grey base — primary brand neutral */
+  --iron: oklch(0.32 0.02 240);          /* #37474F vibe */
+  --iron-deep: oklch(0.22 0.018 240);
+  --steel: oklch(0.72 0.01 240);
+
+  /* Bronze accents — from the logo */
+  --bronze: oklch(0.62 0.10 55);
+  --bronze-glow: oklch(0.78 0.13 65);
+
+  /* Safety Orange — primary CTA */
+  --safety: oklch(0.70 0.19 45);         /* ~#F57C00 */
+  --safety-deep: oklch(0.60 0.20 40);    /* ~#E65100 */
+
+  --whatsapp: oklch(0.72 0.17 145);      /* #25D366 */
+  --success: oklch(0.62 0.15 150);
+
+  --background: oklch(1 0 0);
+  --foreground: var(--iron);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--iron);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--iron);
+
+  --primary: var(--iron);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.97 0.005 240);
+  --secondary-foreground: var(--iron);
+  --muted: oklch(0.96 0.005 240);
+  --muted-foreground: oklch(0.45 0.012 240);
+  --accent: var(--safety);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.58 0.24 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.91 0.008 240);
+  --input: oklch(0.91 0.008 240);
+  --ring: var(--safety);
+
+  /* Reusable gradients & shadows */
+  --gradient-iron: linear-gradient(135deg, var(--iron-deep), var(--iron));
+  --gradient-bronze: linear-gradient(135deg, var(--bronze), var(--bronze-glow));
+  --gradient-safety: linear-gradient(135deg, var(--safety), var(--safety-deep));
+  --gradient-hero-overlay: linear-gradient(180deg, oklch(0.18 0.02 240 / 0.55) 0%, oklch(0.18 0.02 240 / 0.85) 100%);
+
+  --shadow-card: 0 2px 8px oklch(0.2 0.02 240 / 0.08);
+  --shadow-card-hover: 0 12px 32px oklch(0.2 0.02 240 / 0.16);
+  --shadow-cta: 0 8px 24px oklch(0.7 0.19 45 / 0.35);
+
+  /* ── Industrial glass / header tokens ─────────────────────────
+     Single source of truth so header, drawers, modals, and any
+     future "glass" surface stay visually aligned with the brand. */
+  --glass-tint-top: oklch(0.20 0.020 240);
+  --glass-tint-bottom: oklch(0.16 0.018 240);
+  --glass-blur: 22px;
+  --glass-saturate: 180%;
+  --glass-border: oklch(1 0 0 / 6%);
+  --glass-highlight: oklch(1 0 0 / 4%);
+  --glass-shadow: 0 10px 32px -8px oklch(0 0 0 / 45%);
+  --glass-accent: var(--safety);
+
+  /* Header-specific interpolation values, driven by --header-progress
+     (0 = at top, 1 = scrolled). Components only set the progress var. */
+  --header-progress: 0;
+  --header-blur: calc(6px + (var(--glass-blur) - 6px) * var(--header-progress));
+  --header-saturate: calc(140% + (var(--glass-saturate) - 140%) * var(--header-progress));
+  --header-tint-top-alpha: calc(0.55 + (0.88 - 0.55) * var(--header-progress));
+  --header-tint-bottom-alpha: calc(0.18 + (0.92 - 0.18) * var(--header-progress));
+  --header-accent-alpha: calc(0 + 0.55 * var(--header-progress));
+  --header-shadow-alpha: calc(0 + 0.45 * var(--header-progress));
+}
+
+.dark {
+  --background: var(--iron-deep);
+  --foreground: oklch(0.98 0.003 240);
+  --card: oklch(0.26 0.018 240);
+  --card-foreground: oklch(0.98 0.003 240);
+  --popover: oklch(0.26 0.018 240);
+  --popover-foreground: oklch(0.98 0.003 240);
+  --primary: var(--safety);
+  --primary-foreground: oklch(0.18 0.018 240);
+  --secondary: oklch(0.30 0.02 240);
+  --secondary-foreground: oklch(0.98 0.003 240);
+  --muted: oklch(0.28 0.018 240);
+  --muted-foreground: oklch(0.72 0.01 240);
+  --accent: var(--safety);
+  --accent-foreground: oklch(1 0 0);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: var(--safety);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* Sticky header offset so anchor jumps don't get hidden behind navbar */
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* Prevent horizontal overflow from animations / wide content */
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    color: var(--color-iron);
+    letter-spacing: -0.01em;
+  }
+
+  h2, h3, h4 {
+    /* Same sticky-header offset for in-page anchor targets */
+    scroll-margin-top: 6rem;
+  }
+
+  .font-display { font-family: var(--font-display); }
+  .font-bn { font-family: var(--font-bn); line-height: 1.7; }
+
+  ::selection {
+    background: var(--color-safety);
+    color: white;
+  }
+
+  /* Accessible keyboard focus — visible only for keyboard users */
+  :focus-visible {
+    outline: 2px solid var(--color-safety);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  :focus:not(:focus-visible) { outline: none; }
+
+  /* Snappier tap response on touch devices, no blue tap highlight */
+  a, button, [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  /* Higher-quality image rendering for the equipment galleries */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+@layer utilities {
+  .container-page {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-page { padding-inline: 2rem; }
+  }
+
+  .text-balance { text-wrap: balance; }
+
+  .bg-gradient-iron { background: var(--gradient-iron); }
+  .bg-gradient-bronze { background: var(--gradient-bronze); }
+  .bg-gradient-safety { background: var(--gradient-safety); }
+
+  .shadow-card { box-shadow: var(--shadow-card); }
+  .shadow-card-hover { box-shadow: var(--shadow-card-hover); }
+  .shadow-cta { box-shadow: var(--shadow-cta); }
+
+  .border-safety-top { border-top: 4px solid var(--color-safety); }
+
+  .eyebrow {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-safety);
+  }
+
+  /* Animated underline link — slides in left-to-right on hover */
+  .story-link {
+    position: relative;
+    display: inline-block;
+  }
+  .story-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 1px;
+    width: 0;
+    background: currentColor;
+    transition: width 300ms ease-out;
+  }
+  .story-link:hover::after,
+  .story-link:focus-visible::after {
+    width: 100%;
+  }
+
+  /* Subtle lift on hover — for cards/CTAs that opt in */
+  .hover-lift {
+    transition: transform 250ms ease-out, box-shadow 250ms ease-out;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+}
+
+/* Hero ken-burns subtle zoom */
+@keyframes heroZoom {
+  from { transform: scale(1.08); }
+  to   { transform: scale(1.0); }
+}
+
+/* Brand marquee */
+@keyframes brandMarquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Hero ember particles — slow upward drift with sideways sway */
+@keyframes emberDrift {
+  0%   { transform: translate3d(0, 0, 0) scale(1);   opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { transform: translate3d(8px, -55vh, 0) scale(1.15); }
+  90%  { opacity: 1; }
+  100% { transform: translate3d(-6px, -110vh, 0) scale(0.85); opacity: 0; }
+}
+
+/* Glassmorphic ripple — used by social/Facebook link orb */
+@keyframes atdb-ripple {
+  0%   { transform: scale(1);   opacity: 0.55; }
+  80%  { transform: scale(1.9); opacity: 0;    }
+  100% { transform: scale(1.9); opacity: 0;    }
+}
+
+/* Slow continuous spin — for WhatsApp FAB conic halo */
+@keyframes atdb-spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: oklch(1 0 0 / 12%);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid oklch(1 0 0 / 15%);
+    box-shadow: 0 8px 32px 0 oklch(0 0 0 / 12%);
+  }
+
+  /* Reusable industrial glass surface — drawers, modals, sticky bars,
+     callouts. Uses the shared tokens above so brand stays unified. */
+  .glass-industrial {
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--glass-tint-top) 88%, transparent) 0%,
+      color-mix(in oklch, var(--glass-tint-bottom) 92%, transparent) 100%
+    );
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 1px 0 0 var(--glass-highlight) inset, var(--glass-shadow);
+  }
+
+  /* Backwards-compatible alias used by existing components. */
+  .glass-dark {
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--glass-tint-top) 88%, transparent) 0%,
+      color-mix(in oklch, var(--glass-tint-bottom) 92%, transparent) 100%
+    );
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: 0 1px 0 0 var(--glass-highlight) inset, var(--glass-shadow);
+  }
+
+  /* Header surface — single class, smoothly interpolated by
+     --header-progress (0 → 1) instead of swapping classes. */
+  .header-surface {
+    position: relative;
+    background: linear-gradient(
+      180deg,
+      color-mix(in oklch, var(--glass-tint-top) calc(var(--header-tint-top-alpha) * 100%), transparent) 0%,
+      color-mix(in oklch, var(--glass-tint-bottom) calc(var(--header-tint-bottom-alpha) * 100%), transparent) 100%
+    );
+    backdrop-filter: blur(var(--header-blur)) saturate(var(--header-saturate));
+    -webkit-backdrop-filter: blur(var(--header-blur)) saturate(var(--header-saturate));
+    border-bottom: 1px solid color-mix(in oklch, var(--glass-border) calc(var(--header-progress) * 100%), transparent);
+    box-shadow:
+      0 1px 0 0 color-mix(in oklch, var(--glass-highlight) calc(var(--header-progress) * 100%), transparent) inset,
+      0 10px 32px -8px color-mix(in oklch, oklch(0 0 0) calc(var(--header-shadow-alpha) * 100%), transparent);
+    transition:
+      backdrop-filter 400ms ease,
+      -webkit-backdrop-filter 400ms ease,
+      background 400ms ease,
+      box-shadow 400ms ease,
+      border-color 400ms ease;
+  }
+  .header-surface::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      color-mix(in oklch, var(--glass-accent) calc(var(--header-accent-alpha) * 100%), transparent) 30%,
+      color-mix(in oklch, var(--glass-accent) calc(var(--header-accent-alpha) * 100%), transparent) 70%,
+      transparent 100%
+    );
+    pointer-events: none;
+    transition: background 400ms ease;
+  }
+
+  /* Inner header controls subtly tighten as the bar scrolls — gives a
+     coordinated "settling" feel where every pill, divider and button
+     responds to the same --header-progress driven by the header surface. */
+  .header-surface :where(button, a, [role="group"] > span) {
+    transition:
+      transform 400ms ease,
+      opacity 400ms ease,
+      background-color 300ms ease,
+      border-color 300ms ease,
+      box-shadow 300ms ease,
+      color 300ms ease;
+  }
+  .header-surface [role="group"] > span[aria-hidden="true"] {
+    /* Dividers fade in as the header consolidates. */
+    opacity: calc(0.35 + 0.65 * var(--header-progress));
+  }
+
+  /* Legacy at-top veil — kept for any consumer that referenced it. */
+  .header-veil {
+    background: linear-gradient(
+      to bottom,
+      color-mix(in oklch, var(--glass-tint-bottom) 55%, transparent) 0%,
+      color-mix(in oklch, var(--glass-tint-bottom) 18%, transparent) 60%,
+      transparent 100%
+    );
+    backdrop-filter: blur(6px) saturate(140%);
+    -webkit-backdrop-filter: blur(6px) saturate(140%);
+  }
+
+  .glass-card {
+    background: oklch(1 0 0 / 65%);
+    backdrop-filter: blur(10px);
+    border: 1px solid oklch(1 0 0 / 20%);
+    box-shadow: 0 4px 16px 0 oklch(0 0 0 / 5%);
+    transition: all 0.3s ease;
+  }
+
+  .dark .glass-card {
+    background: oklch(0.26 0.018 240 / 65%);
+    border: 1px solid oklch(1 0 0 / 10%);
+  }
+
+  .glass-card:hover {
+    background: oklch(1 0 0 / 85%);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px 0 oklch(0 0 0 / 10%);
+  }
+
+  .dark .glass-card:hover {
+    background: oklch(0.26 0.018 240 / 85%);
+  }
+
+  /* ── Unified "premium glass" card ─────────────────────────────
+     Single class that gives any boxy card the same industrial-glass
+     hover treatment used across the site (lift + safety border +
+     soft halo + shimmer sweep). Works on both light and dark
+     surfaces — just add `card-glass` (or `card-glass-dark`) to any
+     bordered box. */
+  .card-glass {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: oklch(1 0 0 / 70%);
+    backdrop-filter: blur(10px) saturate(160%);
+    -webkit-backdrop-filter: blur(10px) saturate(160%);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-card);
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 320ms ease,
+      border-color 320ms ease,
+      background-color 320ms ease;
+  }
+  .card-glass::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklch, var(--color-safety) 0%, transparent) 0%,
+      color-mix(in oklch, var(--color-safety) 0%, transparent) 100%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 360ms ease, background 360ms ease;
+    z-index: 1;
+  }
+  .card-glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      115deg,
+      transparent 30%,
+      oklch(1 0 0 / 0.32) 50%,
+      transparent 70%
+    );
+    transform: translateX(-110%);
+    transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1;
+  }
+  .card-glass:hover,
+  .card-glass:focus-within {
+    transform: translateY(-6px);
+    background: oklch(1 0 0 / 88%);
+    border-color: color-mix(in oklch, var(--color-safety) 50%, transparent);
+    box-shadow:
+      0 18px 44px -14px oklch(0 0 0 / 0.18),
+      0 0 0 1px color-mix(in oklch, var(--color-safety) 30%, transparent),
+      0 8px 28px -10px oklch(0.7 0.19 45 / 0.35);
+  }
+  .card-glass:hover::before,
+  .card-glass:focus-within::before {
+    opacity: 1;
+    background: linear-gradient(
+      135deg,
+      color-mix(in oklch, var(--color-safety) 70%, transparent) 0%,
+      color-mix(in oklch, var(--bronze-glow) 60%, transparent) 50%,
+      color-mix(in oklch, var(--color-safety) 70%, transparent) 100%
+    );
+  }
+  .card-glass:hover::after,
+  .card-glass:focus-within::after {
+    transform: translateX(110%);
+  }
+  .card-glass > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Dark variant — for cards placed on iron-deep / dark sections */
+  .card-glass-dark {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: oklch(1 0 0 / 5%);
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    border: 1px solid oklch(1 0 0 / 10%);
+    box-shadow: 0 1px 0 0 oklch(1 0 0 / 4%) inset, 0 8px 28px -12px oklch(0 0 0 / 0.5);
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 320ms ease,
+      border-color 320ms ease,
+      background-color 320ms ease;
+  }
+  .card-glass-dark::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      115deg,
+      transparent 30%,
+      oklch(1 0 0 / 0.16) 50%,
+      transparent 70%
+    );
+    transform: translateX(-110%);
+    transition: transform 900ms cubic-bezier(0.22, 1, 0.36, 1);
+    z-index: 1;
+  }
+  .card-glass-dark:hover,
+  .card-glass-dark:focus-within {
+    transform: translateY(-6px);
+    background: oklch(1 0 0 / 8%);
+    border-color: color-mix(in oklch, var(--color-safety) 45%, transparent);
+    box-shadow:
+      0 1px 0 0 oklch(1 0 0 / 6%) inset,
+      0 20px 44px -16px oklch(0 0 0 / 0.6),
+      0 0 0 1px color-mix(in oklch, var(--color-safety) 28%, transparent),
+      0 10px 30px -10px oklch(0.7 0.19 45 / 0.30);
+  }
+  .card-glass-dark:hover::after,
+  .card-glass-dark:focus-within::after {
+    transform: translateX(110%);
+  }
+  .card-glass-dark > * {
+    position: relative;
+    z-index: 2;
+  }
+}
